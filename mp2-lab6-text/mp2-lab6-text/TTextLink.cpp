@@ -54,20 +54,19 @@ void TTextLink::MemCleaner(TText& txt) {
 		txt.SetLine(tmp);
 	}
 
-	//free links list markup
+	
 	TTextLink* pLink;
 	for (pLink = MemHeader.pFree; pLink != NULL; pLink = pLink->pNext) {
 		strcpy(pLink->str, "&&&");
 	}
 
-	//garbage collection
+	
 	for (pLink = MemHeader.pFirst; pLink <= MemHeader.pLast; pLink++) {
-		//text line or free link
 		if (std::strstr(pLink->str, "&&&") != NULL) {
-			std::strcpy(pLink->str, pLink->str + 3); //unmarking
+			std::strcpy(pLink->str, pLink->str + 3); 
 		}
 		else {
-			delete pLink; // unaccaunted link to the list of free
+			delete pLink; 
 		}
 	}
 }

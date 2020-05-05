@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include "TText.h"
+#include <clocale>
 
 
 using namespace std;
@@ -11,9 +12,10 @@ TTextMem TTextLink::MemHeader;
 void TextMenu(TText& txt) {
 	string st;
 	string com;
+	setlocale(LC_CTYPE, "Russian");
 
 	do {
-		cout << "enter 'help' to see a list of commands" << endl;
+		cout << "введите 'help' чтобы увидить список команд" << endl;
 		cin >> com;
 		if (com == "exit") {
 		}
@@ -75,20 +77,20 @@ void TextMenu(TText& txt) {
 		}
 
 		if (com == "help") {
-			cout << "print - printing text with indentations" << endl;
-			cout << "printit - printing text with iterator" << endl;
-			cout << "first - go to beginning of text" << endl;
-			cout << "next - go to the next link" << endl;
-			cout << "down - go to the down link" << endl;
-			cout << "prev - go to previous link" << endl;
-			cout << "deleted - delete the down link" << endl;
-			cout << "deleten - delete  the next link" << endl;
-			cout << "insertdl - adding the down line" << endl;
-			cout << "insertds - adding the down sectoin" << endl;
-			cout << "insertnl - adding the next line" << endl;
-			cout << "insertns - adding the next sectoin" << endl;
-			cout << "free - show free memory" << endl;
-			cout << "exit - exit" << endl;
+			cout << "print - печать текста с отступами" << endl;
+			cout << "printit - печать текста без отстутпов по итератору" << endl;
+			cout << "first -перейти в начало текста" << endl;
+			cout << "next - перейти на следующую строку" << endl;
+			cout << "down - перейти на строку в глубь" << endl;
+			cout << "prev - перейти на предыдущую" << endl;
+			cout << "deleted - удалить строку на уровень ниже" << endl;
+			cout << "deleten - удалить следующую строку" << endl;
+			cout << "insertdl - добавить строку на уровень ниже" << endl;
+			cout << "insertds - добавить секцию на уровень ниже" << endl;
+			cout << "insertnl - добавить строку на место следующей" << endl;
+			cout << "insertns - добавить секцию на место следующей" << endl;
+			cout << "free -показать свободную память" << endl;
+			cout << "exit - закрыть программу" << endl;
 		}
 	} while (com != "exit");
 }
@@ -97,9 +99,10 @@ int main() {
 	TTextLink::InitMemSystem(100);
 	TText t;
 	t.Read("../textin.txt");
-	t.Write("../textout.txt");
+	//t.Write("../textout.txt");
 
 	TextMenu(t);
+	t.Write("../textout.txt");
 
 	TTextLink::MemCleaner(t);
 	TTextLink::PrintFreeLink();
